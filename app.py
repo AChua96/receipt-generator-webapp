@@ -22,14 +22,15 @@ def home():
 def generate_receipt():
     customer_name = request.form['customer_name']
     purchased_items = request.form.getlist('items')
-    quantities = request.form.getlist('quantities')
 
     receipt_lines = [f"Customer: {customer_name}", "---"]
     total = 0
 
-    for item, qty in zip(purchased_items, quantities):
+    for item in purchased_items:
+        qty_key = f"quantities_{item}"
+        qty = int(request.form.get(qty_key, 0))
+
         if item in inventory:
-            qty = int(qty)
             if qty > inventory[item]["stock"]:
                 return render_template('index.html', inventory=inventory, message=f"Not enough stock for {item}.")
 
@@ -50,8 +51,9 @@ def generate_receipt():
     receipt_lines.append(f"Discount: PHP {discount:.2f}")
     receipt_lines.append(f"Total: PHP {total:.2f}")
 
-    # Save receipt as .txt file
-    receipt_filename = os.path.join(RECEIPT_FOLDER, "receipt.txt")
+    # Save receipt as .txt file with customer name
+    sanitized_name = customer_name.replace(" ", "_").replace("/", "_").replace("\\", "_")
+    receipt_filename = os.path.join(RECEIPT_FOLDER, f"receipt_{sanitized_name}.txt")
     with open(receipt_filename, 'w') as file:
         file.write("\n".join(receipt_lines))
 
