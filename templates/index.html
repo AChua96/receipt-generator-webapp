@@ -97,7 +97,7 @@
                 <tr>
                     <td>{{ product }}</td>
                     <td>{{ details.price }}</td>
-                    <td class="{% if details.stock == 0 %}stock-low{% elif details.stock >= 2 %}stock-medium{% endif %}">
+                    <td class="{% if details.stock == 0 %}stock-low{% elif details.stock <= 2 %}stock-medium{% endif %}">
                         {{ details.stock }}
                     </td>
                     <td>
