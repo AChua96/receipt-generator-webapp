@@ -9,21 +9,56 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
-        th, td {
+        table, th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+        }
+        th, td {
+            padding: 10px;
             text-align: left;
         }
         th {
             background-color: #f4f4f4;
         }
-        .error {
-            color: red;
+        input[type="number"], input[type="text"], button {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .link-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .link-button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            color: green;
             font-weight: bold;
         }
     </style>
@@ -32,56 +67,41 @@
     <h1>Receipt Generator</h1>
 
     {% if message %}
-        <p class="error">{{ message }}</p>
+    <p class="message">{{ message }}</p>
     {% endif %}
 
-    <h2>Available Inventory</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Price (PHP)</th>
-                <th>Stock</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item, details in inventory.items() %}
-            <tr>
-                <td>{{ item }}</td>
-                <td>{{ details.price }}</td>
-                <td>{{ details.stock }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <form method="POST" action="/generate_receipt">
+        <label for="customer_name">Customer Name:</label>
+        <input type="text" id="customer_name" name="customer_name" required>
 
-    <h2>Place an Order</h2>
-<form action="/generate_receipt" method="post">
-    <label for="customer_name">Customer Name:</label><br>
-    <input type="text" id="customer_name" name="customer_name" required><br><br>
+        <h2>Available Products</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price (PHP)</th>
+                    <th>Stock</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product, details in inventory.items() %}
+                <tr>
+                    <td>{{ product }}</td>
+                    <td>{{ details.price }}</td>
+                    <td>{{ details.stock }}</td>
+                    <td>
+                        <input type="number" name="quantities_{{ product }}" min="0" max="{{ details.stock }}" value="0">
+                        <input type="hidden" name="items" value="{{ product }}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item, details in inventory.items() %}
-            <tr>
-                <td>
-                    <input type="checkbox" name="items" value="{{ item }}"> {{ item }}
-                </td>
-                <td>
-                    <input type="number" name="quantities_{{ item }}" min="1" max="{{ details.stock }}" value="1">
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <button type="submit">Generate Receipt</button>
+    </form>
 
-    <button type="submit">Generate Receipt</button>
-</form>
+    <a href="/manage_inventory" class="link-button">Manage Inventory</a>
 </body>
 </html>
