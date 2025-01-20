@@ -42,15 +42,16 @@ def generate_receipt():
             if qty > inventory[item]["stock"]:
                 return render_template('index.html', inventory=inventory, message=f"Not enough stock for {item}.")
 
-            price = inventory[item]["price"] * qty
-            receipt_lines.append(f"{item} (x{qty}): PHP {price:.2f}")
-            total += price
+            if qty >= 1:  # Only include items with quantity >= 1
+                price = inventory[item]["price"] * qty
+                receipt_lines.append(f"{item} (x{qty}): PHP {price:.2f}")
+                total += price
 
-            # Deduct purchased quantity from stock
-            inventory[item]["stock"] -= qty
+                # Deduct purchased quantity from stock
+                inventory[item]["stock"] -= qty
 
     discount = 0
-    if total >= 3500:  # Apply a 15% discount for totals >= 3000
+    if total >= 3000:  # Apply a 15% discount for totals >= 3000
         discount = total * 0.15
         total -= discount
 
