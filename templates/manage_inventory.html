@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+        }
+        input[type="text"], input[type="number"], button {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            max-width: 300px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Manage Inventory</h1>
+
+    {% if message %}
+    <p class="message">{{ message }}</p>
+    {% endif %}
+
+    <h2>Current Inventory</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Price (PHP)</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product, details in inventory.items() %}
+            <tr>
+                <td>{{ product }}</td>
+                <td>{{ details.price }}</td>
+                <td>{{ details.stock }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Add or Update Product</h2>
+    <form method="POST" action="/manage_inventory">
+        <label for="product_name">Product Name:</label>
+        <input type="text" id="product_name" name="product_name" required>
+
+        <label for="price">Price (PHP):</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+
+        <label for="stock">Stock Quantity:</label>
+        <input type="number" id="stock" name="stock" required>
+
+        <button type="submit">Save</button>
+    </form>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>
