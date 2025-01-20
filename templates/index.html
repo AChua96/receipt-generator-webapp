@@ -56,32 +56,32 @@
     </table>
 
     <h2>Place an Order</h2>
-    <form action="/generate_receipt" method="post">
-        <label for="customer_name">Customer Name:</label><br>
-        <input type="text" id="customer_name" name="customer_name" required><br><br>
+<form action="/generate_receipt" method="post">
+    <label for="customer_name">Customer Name:</label><br>
+    <input type="text" id="customer_name" name="customer_name" required><br><br>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item, details in inventory.items() %}
-                <tr>
-                    <td>
-                        <input type="checkbox" name="items" value="{{ item }}"> {{ item }}
-                    </td>
-                    <td>
-                        <input type="number" name="quantities" min="1" max="{{ details.stock }}" value="1">
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item, details in inventory.items() %}
+            <tr>
+                <td>
+                    <input type="checkbox" name="items" value="{{ item }}"> {{ item }}
+                </td>
+                <td>
+                    <input type="number" name="quantities_{{ item }}" min="1" max="{{ details.stock }}" value="1">
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-        <button type="submit">Generate Receipt</button>
-    </form>
+    <button type="submit">Generate Receipt</button>
+</form>
 </body>
 </html>
