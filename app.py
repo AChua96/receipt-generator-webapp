@@ -68,5 +68,23 @@ def update_inventory():
     inventory[product_name] = {"price": price, "stock": stock}
     return render_template('index.html', inventory=inventory, message=f"Added/Updated {product_name} with price PHP {price:.2f} and stock {stock}.")
 
+@app.route('/manage_inventory', methods=['GET', 'POST'])
+def manage_inventory():
+    message = None
+    if request.method == 'POST':
+        product_name = request.form['product_name']
+        price = float(request.form['price'])
+        stock = int(request.form['stock'])
+
+        if product_name in inventory:
+            inventory[product_name]['price'] = price
+            inventory[product_name]['stock'] = stock
+            message = f"Updated {product_name}: Price = PHP {price:.2f}, Stock = {stock}"
+        else:
+            inventory[product_name] = {"price": price, "stock": stock}
+            message = f"Added new product {product_name}: Price = PHP {price:.2f}, Stock = {stock}"
+
+    return render_template('manage_inventory.html', inventory=inventory, message=message)
+
 if __name__ == '__main__':
     app.run(debug=True)
