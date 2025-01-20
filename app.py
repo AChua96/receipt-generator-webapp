@@ -51,7 +51,7 @@ def generate_receipt():
                 inventory[item]["stock"] -= qty
 
     discount = 0
-    if total >= 3000:  # Apply a 15% discount for totals >= 3000
+    if total >= 3500:  # Apply a 15% discount for totals >= 3000
         discount = total * 0.15
         total -= discount
 
