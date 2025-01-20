@@ -61,6 +61,14 @@
             color: green;
             font-weight: bold;
         }
+        .stock-low {
+            background-color: red;
+            color: white;
+        }
+        .stock-medium {
+            background-color: yellow;
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -89,9 +97,15 @@
                 <tr>
                     <td>{{ product }}</td>
                     <td>{{ details.price }}</td>
-                    <td>{{ details.stock }}</td>
+                    <td class="{% if details.stock == 0 %}stock-low{% elif details.stock >= 2 %}stock-medium{% endif %}">
+                        {{ details.stock }}
+                    </td>
                     <td>
+                        {% if details.stock > 0 %}
                         <input type="number" name="quantities_{{ product }}" min="0" max="{{ details.stock }}" value="0">
+                        {% else %}
+                        <input type="number" name="quantities_{{ product }}" min="0" max="{{ details.stock }}" value="0" disabled>
+                        {% endif %}
                         <input type="hidden" name="items" value="{{ product }}">
                     </td>
                 </tr>
