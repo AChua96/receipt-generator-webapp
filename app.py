@@ -5,9 +5,17 @@ app = Flask(__name__)
 
 # Inventory dictionary to hold product names, prices, and stock quantities
 inventory = {
-    "Apple": {"price": 10.00, "stock": 50},
-    "Banana": {"price": 5.00, "stock": 100},
-    "Orange": {"price": 8.00, "stock": 75}
+    "Chili Garlic Oil 120g": {"price": 120.00, "stock": 10},
+    "Chili Garlic Oil 220g": {"price": 220.00, "stock": 10},
+    "Kuchay Dumpling 8pcs": {"price": 190.00, "stock": 10},
+    "Hakaw 8pcs": {"price": 220.00, "stock": 10},
+    "Shrimp Wonton 12pcs": {"price": 280.00, "stock": 10},
+    "Japanese Siomai 12pcs": {"price": 280.00, "stock": 10},
+    "Pork Shrimp w/ Mushroom Siomai 12pcs": {"price": 280.00, "stock": 10},
+    "Beancurd Roll 12pcs": {"price": 320.00, "stock": 10},
+    "Xiao Long Bao 12pcs": {"price": 330.00, "stock": 10},
+    "Chicken Feet 500g": {"price": 320.00, "stock": 10},
+    "Tausi Spareribs 300g": {"price": 320.00, "stock": 10}
 }
 
 # Folder to save receipts
