@@ -8,13 +8,13 @@ inventory = {
     "Chili Garlic Oil 120g": {"price": 120.00, "stock": 0},
     "Chili Garlic Oil 220g": {"price": 220.00, "stock": 0},
     "Kuchay Dumpling 8pcs": {"price": 190.00, "stock": 11},
-    "Hakaw 8pcs": {"price": 220.00, "stock": 16},
+    "Hakaw 8pcs": {"price": 220.00, "stock": 14},
     "Shrimp Wonton 12pcs": {"price": 280.00, "stock": 0},
     "Japanese Siomai 12pcs": {"price": 280.00, "stock": 9},
-    "Pork Shrimp w/ Mushroom Siomai 12pcs": {"price": 280.00, "stock": 0},
+    "Pork Shrimp w/ Mushroom Siomai 12pcs": {"price": 280.00, "stock": 5},
     "Beancurd Roll 12pcs": {"price": 320.00, "stock": 0},
     "Xiao Long Bao 12pcs": {"price": 330.00, "stock": 5},
-    "Chicken Feet 500g": {"price": 320.00, "stock": 1},
+    "Chicken Feet 500g": {"price": 320.00, "stock": 6},
     "Tausi Spareribs 300g": {"price": 320.00, "stock": 1}
 }
 
